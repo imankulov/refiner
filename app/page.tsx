@@ -1,45 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import {
-  diff_match_patch,
-  DIFF_DELETE,
-  DIFF_INSERT,
-  DIFF_EQUAL,
-} from "diff-match-patch";
 import { atomWithStorage } from "jotai/utils";
 import { useAtom } from "jotai";
+import { compareStrings } from "./utils";
 
 const textAtom = atomWithStorage("text", "");
-
-const compareStrings = (s1: string, s2: string) => {
-  let dmp = new diff_match_patch();
-  let diff = dmp.diff_main(s1, s2);
-  dmp.diff_cleanupSemantic(diff);
-
-  let result: JSX.Element[] = [];
-  diff.forEach((part: [number, string], index: number) => {
-    if (part[0] === DIFF_INSERT) {
-      result.push(
-        <span
-          key={index}
-          className="font-semibold whitespace-pre-wrap bg-emerald-100"
-        >
-          {part[1]}
-        </span>
-      );
-    } else if (part[0] === DIFF_DELETE) {
-      result.push(
-        <span key={index} className="whitespace-pre-wrap bg-red-100">
-          {part[1]}
-        </span>
-      );
-    } else if (part[0] === DIFF_EQUAL) {
-      result.push(<span className="whitespace-pre-wrap">{part[1]}</span>);
-    }
-  });
-  return result;
-};
 
 const Home = () => {
   const [text, setText] = useAtom(textAtom);
