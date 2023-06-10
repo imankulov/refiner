@@ -7,6 +7,10 @@ import {
   DIFF_INSERT,
   DIFF_EQUAL,
 } from "diff-match-patch";
+import { atomWithStorage } from "jotai/utils";
+import { useAtom } from "jotai";
+
+const textAtom = atomWithStorage("text", "");
 
 const compareStrings = (s1: string, s2: string) => {
   let dmp = new diff_match_patch();
@@ -38,7 +42,7 @@ const compareStrings = (s1: string, s2: string) => {
 };
 
 const Home = () => {
-  const [text, setText] = useState("");
+  const [text, setText] = useAtom(textAtom);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<JSX.Element[]>([]);
 
