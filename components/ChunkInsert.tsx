@@ -1,7 +1,13 @@
+import { Box } from "@mui/material";
+import { green } from "@mui/material/colors";
+
 export const ChunkInsert = ({ content }: { key: number; content: string }) => {
   return (
-    <span className="font-semibold whitespace-pre-wrap bg-emerald-100">
+    <Box
+      component="span"
+      sx={{ backgroundColor: green[500], whiteSpace: "pre-wrap" }}
+    >
       {content}
-    </span>
+    </Box>
   );
 };

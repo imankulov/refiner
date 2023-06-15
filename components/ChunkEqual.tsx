@@ -1,3 +1,9 @@
+import { Box } from "@mui/material";
+
 export const ChunkEqual = ({ content }: { content: string }) => {
-  return <span className="whitespace-pre-wrap">{content}</span>;
+  return (
+    <Box component="span" sx={{ whiteSpace: "pre-wrap" }}>
+      {content}
+    </Box>
+  );
 };

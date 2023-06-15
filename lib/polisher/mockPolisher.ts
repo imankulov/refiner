@@ -55,4 +55,5 @@ const mapping: Map<string, string> = new Map([
   ["In", "Before"],
   ["to", ""],
   ["To", ""],
+  ["Hey!", "Hey! Yeah!"],
 ]);

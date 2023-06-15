@@ -1,5 +1,7 @@
 "use client";
 
+import { Box, TextField, Button, Grid, Container } from "@mui/material";
+
 import { useState } from "react";
 import { atomWithStorage } from "jotai/utils";
 import { useAtom } from "jotai";
@@ -28,30 +30,45 @@ const Home = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
-      <div className="w-2/3 p-6 px-8 pt-6 pb-8 mb-4 bg-white rounded shadow-md">
-        <form className="mb-4" onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <textarea
-              className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none h-80 focus:outline-none focus:shadow-outline"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="Text"
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={loading}
-              type="submit"
-            >
-              {loading ? "Polishing in progress..." : "Polish"}
-            </button>
-          </div>
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh"
+      pt={4}
+    >
+      <Container maxWidth="lg">
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                multiline
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Text"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                disabled={loading}
+                type="submit"
+              >
+                {loading ? "Polishing in progress..." : "Polish"}
+              </Button>
+            </Grid>
+          </Grid>
         </form>
-        <div className="pt-4 whitespace-pre-wrap">{result}</div>
-      </div>
-    </div>
+        <Box my={4} textAlign="left" sx={{ whiteSpace: "pre-wrap" }}>
+          {result}
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

@@ -1,12 +1,9 @@
-import "./globals.css";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata = {
-  title: "Prose Polish",
-  description: "A tool to help you polish your prose.",
-};
+"use client";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import { CssBaseline } from "@mui/material";
 
 export default function RootLayout({
   children,
@@ -17,8 +14,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body>
+        <CssBaseline />
+        {children}
+      </body>
     </html>
   );
 }
