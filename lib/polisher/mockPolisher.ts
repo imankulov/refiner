@@ -16,6 +16,8 @@
 export async function mockPolishProse(text: string): Promise<string> {
   const words = text.split(" ");
   const newWords = words.map((word) => mapping.get(word) ?? word);
+  // Sleep for 2 seconds to simulate a slow response.
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   return newWords.join(" ");
 }
 
