@@ -3,14 +3,14 @@
 import { Box, TextField, Button, Stack, Container } from "@mui/material";
 
 import { useState } from "react";
-import { atomWithStorage } from "jotai/utils";
 import { useAtom } from "jotai";
 import { compareStrings } from "./utils";
-
-const textAtom = atomWithStorage("text", "");
+import { textAtom, toneNamesAtom } from "./atoms";
+import { ToneSelector } from "@/components/ToneSelector";
 
 const Home = () => {
   const [text, setText] = useAtom(textAtom);
+  const [toneNames] = useAtom(toneNamesAtom);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<JSX.Element[]>([]);
 
@@ -23,7 +23,7 @@ const Home = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text, toneNames }),
     });
     const polished = (await result.json())["polished"];
     setResult(compareStrings(text, polished));
@@ -50,6 +50,7 @@ const Home = () => {
             placeholder="Text"
             disabled={loading}
           />
+          <ToneSelector />
           <Button
             fullWidth
             variant="contained"

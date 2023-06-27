@@ -1,3 +1,5 @@
+import { Tone } from "./tones";
+
 /**
  * Mock polisher.
  *
@@ -13,7 +15,10 @@
  *
  * @param text
  */
-export async function mockPolishProse(text: string): Promise<string> {
+export async function mockPolishProse(
+  text: string,
+  tones: Tone[]
+): Promise<string> {
   const words = text.split(" ");
   const newWords = words.map((word) => mapping.get(word) ?? word);
   // Sleep for 2 seconds to simulate a slow response.
