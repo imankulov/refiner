@@ -6,7 +6,8 @@ export type ToneName =
   | "professional"
   | "positive"
   | "short"
-  | "bulletPoints";
+  | "bulletPoints"
+  | "simple";
 
 export interface Tone {
   name: ToneName;
@@ -63,6 +64,13 @@ export const tones: Tone[] = [
     title: "Bullet Points",
     prompt: "Use bullet points to make the text easier to read.",
     emoji: "📝",
+  },
+  {
+    name: "simple",
+    title: "Simple",
+    prompt:
+      "Make the text simpler. Use simple language. Use shorter words and sentences.",
+    emoji: "👶",
   },
 ];
 
