@@ -7,7 +7,8 @@ export type InstructionName =
   | "positive"
   | "short"
   | "bulletPoints"
-  | "simple";
+  | "simple"
+  | "markdown";
 
 export interface Instruction {
   name: InstructionName;
@@ -71,6 +72,13 @@ export const instructions: Instruction[] = [
     prompt:
       "Make the text simpler. Use simple language. Use shorter words and sentences.",
     emoji: "👶",
+  },
+  {
+    name: "markdown",
+    title: "Markdown",
+    prompt:
+      "Use Markdown to format the text. Format naked URLs as Markdown links. When applicable, use appropriate link text.",
+    emoji: "Ⓜ️",
   },
 ];
 
