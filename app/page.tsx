@@ -12,12 +12,12 @@ import {
 import { useState } from "react";
 import { useAtom } from "jotai";
 import { compareStrings } from "./utils";
-import { showDiffAtom, textAtom, toneNamesAtom } from "./atoms";
-import { ToneSelector } from "@/components/ToneSelector";
+import { showDiffAtom, textAtom, instructionNamesAtom } from "./atoms";
+import { InstructionSelector } from "@/components/InstructionSelector";
 
 const Home = () => {
   const [text, setText] = useAtom(textAtom);
-  const [toneNames] = useAtom(toneNamesAtom);
+  const [instructionNames] = useAtom(instructionNamesAtom);
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<JSX.Element[]>([]);
@@ -31,7 +31,7 @@ const Home = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ text, toneNames }),
+      body: JSON.stringify({ text, instructionNames }),
     });
     const polished = (await result.json())["polished"];
     setResult(compareStrings(text, polished));
@@ -58,7 +58,7 @@ const Home = () => {
             placeholder="Text"
             disabled={loading}
           />
-          <ToneSelector />
+          <InstructionSelector />
           <Button
             fullWidth
             variant="contained"

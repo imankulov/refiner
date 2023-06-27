@@ -1,6 +1,9 @@
-import { ToneName } from "@/lib/polisher/tones";
+import { InstructionName } from "@/lib/polisher/instructions";
 import { atomWithStorage } from "jotai/utils";
 
 export const textAtom = atomWithStorage("text", "");
-export const toneNamesAtom = atomWithStorage<ToneName[]>("tones", []);
+export const instructionNamesAtom = atomWithStorage<InstructionName[]>(
+  "instructionNames",
+  []
+);
 export const showDiffAtom = atomWithStorage("showDiff", true);

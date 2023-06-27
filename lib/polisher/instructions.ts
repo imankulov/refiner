@@ -1,4 +1,4 @@
-export type ToneName =
+export type InstructionName =
   | "formal"
   | "casual"
   | "friendly"
@@ -9,14 +9,14 @@ export type ToneName =
   | "bulletPoints"
   | "simple";
 
-export interface Tone {
-  name: ToneName;
+export interface Instruction {
+  name: InstructionName;
   title: string;
   prompt: string;
   emoji: string;
 }
 
-export const tones: Tone[] = [
+export const instructions: Instruction[] = [
   {
     name: "formal",
     title: "Formal",
@@ -74,6 +74,10 @@ export const tones: Tone[] = [
   },
 ];
 
-export function getTones(toneNames: ToneName[]): Tone[] {
-  return tones.filter((tone) => toneNames.includes(tone.name));
+export function getInstructions(
+  instructionNames: InstructionName[]
+): Instruction[] {
+  return instructions.filter((instruction) =>
+    instructionNames.includes(instruction.name)
+  );
 }

@@ -1,4 +1,4 @@
-import { Tone } from "./tones";
+import { Instruction } from "./instructions";
 
 /**
  * Mock polisher.
@@ -17,7 +17,7 @@ import { Tone } from "./tones";
  */
 export async function mockPolishProse(
   text: string,
-  tones: Tone[]
+  instructions: Instruction[]
 ): Promise<string> {
   const words = text.split(" ");
   const newWords = words.map((word) => mapping.get(word) ?? word);

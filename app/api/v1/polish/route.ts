@@ -1,19 +1,19 @@
 import { polishProse } from "@/lib/polisher/public";
-import { ToneName, getTones } from "@/lib/polisher/tones";
+import { InstructionName, getInstructions } from "@/lib/polisher/instructions";
 import { NextResponse } from "next/server";
 
 interface RequestJSON {
   text?: string;
-  toneNames: ToneName[];
+  instructionNames: InstructionName[];
 }
 
 export async function POST(request: Request) {
   const body: RequestJSON = await request.json();
-  const { text, toneNames } = body;
+  const { text, instructionNames } = body;
   if (!text) {
     return NextResponse.json({ error: "No text provided" });
   }
-  const tones = getTones(toneNames);
-  const polished = await polishProse(text, tones);
+  const instructions = getInstructions(instructionNames);
+  const polished = await polishProse(text, instructions);
   return NextResponse.json({ text, polished });
 }
