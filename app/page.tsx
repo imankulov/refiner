@@ -1,16 +1,24 @@
 "use client";
 
-import { Box, TextField, Button, Stack, Container } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Stack,
+  Container,
+  ToggleButton,
+} from "@mui/material";
 
 import { useState } from "react";
 import { useAtom } from "jotai";
 import { compareStrings } from "./utils";
-import { textAtom, toneNamesAtom } from "./atoms";
+import { showDiffAtom, textAtom, toneNamesAtom } from "./atoms";
 import { ToneSelector } from "@/components/ToneSelector";
 
 const Home = () => {
   const [text, setText] = useAtom(textAtom);
   const [toneNames] = useAtom(toneNamesAtom);
+  const [showDiff, setShowDiff] = useAtom(showDiffAtom);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<JSX.Element[]>([]);
 
@@ -62,6 +70,18 @@ const Home = () => {
           </Button>
           <Box my={4} textAlign="left" sx={{ whiteSpace: "pre-wrap" }}>
             {result}
+          </Box>
+          <Box>
+            {result.length > 0 && (
+              <ToggleButton
+                size="small"
+                value="check"
+                selected={showDiff}
+                onChange={() => setShowDiff(!showDiff)}
+              >
+                {showDiff ? "Hide" : "Show"} diff
+              </ToggleButton>
+            )}
           </Box>
         </Stack>
       </Container>
