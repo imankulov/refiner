@@ -11,33 +11,40 @@ export async function openAIPolishProse(
   text: string,
   instructions: Instruction[]
 ): Promise<string> {
-  const prompt = `Fix grammar and stylistic errors in the following text.
+  const prompt = `Fix grammar and stylistic errors in the text provided below.
+
+The output text must conform to the following instructions:
+
 ${formatInstructions(instructions)}
-Return only corrected text. Do not write validation status.
-If you don't see any errors in the provided text, return the provided text verbatim.
----
+- Return only corrected text. Do not write validation status.
+- Keep the output language the same as the input language. Do not translate the text.
+- Do not add any information that is not present in the input text.
+- If you don't see any errors in the provided text and there is nothing to fix, return the provided text verbatim.
+`;
+
+  const formattedText = `
 ${text}
 `;
 
   console.log("prompt", prompt);
+  console.log("formattedText", formattedText);
 
   const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
+    model: "gpt-3.5-turbo-0613",
     temperature: 0,
-    messages: [{ role: "user", content: prompt }],
+    messages: [
+      { role: "system", content: prompt },
+      { role: "user", content: formattedText },
+    ],
   });
   const completionText = completion.data.choices[0].message?.content;
   return completionText || "";
 }
 
 function formatInstructions(instructions: Instruction[]): string {
-  if (instructions.length === 0) {
-    return "";
-  }
-  const instructionsBulletPoints = instructions
+  return instructions
     .map((instruction) => {
       return `- ${instruction.prompt}`;
     })
     .join("\n");
-  return `\nThe output text must be conformed to the following instructions:\n\n${instructionsBulletPoints}\n`;
 }
