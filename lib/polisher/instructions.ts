@@ -9,6 +9,7 @@ export type InstructionName =
   | "bulletPoints"
   | "simple"
   | "emoji"
+  | "russian"
   | "markdown";
 
 export interface Instruction {
@@ -84,7 +85,7 @@ export const instructions: Instruction[] = [
     name: "markdown",
     title: "Markdown",
     prompt:
-      "Use Markdown to format the text. Format naked URLs as Markdown links. When applicable, use appropriate link text.",
+      "Use Markdown to format the text. Format naked URLs as Markdown links unless they are part of the code block. Inline links in text, whenever it is possible and appropriate. When applicable, use appropriate link text. Wrap variables, file names, and other code in backticks.",
     emoji: "Ⓜ️",
   },
 ];
