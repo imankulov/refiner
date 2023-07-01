@@ -1,7 +1,7 @@
 {
   "name": "refiner",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -19,7 +19,6 @@
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
-    "daisyui": "^3.0.23",
     "diff-match-patch": "^1.0.5",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
