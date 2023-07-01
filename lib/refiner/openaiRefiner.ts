@@ -7,7 +7,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export async function openAIPolishProse(
+export async function openAIRefineText(
   text: string,
   instructions: Instruction[]
 ): Promise<string> {

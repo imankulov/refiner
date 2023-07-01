@@ -1,5 +1,5 @@
-import { polishProse } from "@/lib/polisher/public";
-import { InstructionName, getInstructions } from "@/lib/polisher/instructions";
+import { refineText } from "@/lib/refiner/public";
+import { InstructionName, getInstructions } from "@/lib/refiner/instructions";
 import { NextResponse } from "next/server";
 
 interface RequestJSON {
@@ -14,6 +14,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No text provided" });
   }
   const instructions = getInstructions(instructionNames);
-  const polished = await polishProse(text, instructions);
-  return NextResponse.json({ text, polished });
+  const refined = await refineText(text, instructions);
+  return NextResponse.json({ text, refined: refined });
 }

@@ -1,5 +1,5 @@
 import { instructionNamesAtom } from "@/app/atoms";
-import { InstructionName, instructions } from "@/lib/polisher/instructions";
+import { InstructionName, instructions } from "@/lib/refiner/instructions";
 import { useAtom } from "jotai";
 import { ToggleButton, ToggleButtonGroup, Tooltip } from "@mui/material";
 

@@ -1,7 +1,7 @@
 import { Instruction } from "./instructions";
 
 /**
- * Mock polisher.
+ * Mock Refiner.
  *
  * Replaces some occurrences in the text:
  *
@@ -15,7 +15,7 @@ import { Instruction } from "./instructions";
  *
  * @param text
  */
-export async function mockPolishProse(
+export async function mockRefineText(
   text: string,
   instructions: Instruction[]
 ): Promise<string> {

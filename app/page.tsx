@@ -26,15 +26,15 @@ const Home = () => {
     e.preventDefault();
     setResult([]);
     setLoading(true);
-    const result = await fetch("api/v1/polish", {
+    const result = await fetch("api/v1/refine", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ text, instructionNames }),
     });
-    const polished = (await result.json())["polished"];
-    setResult(compareStrings(text, polished));
+    const refined = (await result.json())["refined"];
+    setResult(compareStrings(text, refined));
     setLoading(false);
   };
 
@@ -66,7 +66,7 @@ const Home = () => {
             disabled={loading}
             onClick={handleSubmit}
           >
-            {loading ? "Polishing in progress..." : "Polish"}
+            {loading ? "Refining in progress..." : "Refine"}
           </Button>
           <Box my={4} textAlign="left" sx={{ whiteSpace: "pre-wrap" }}>
             {result}

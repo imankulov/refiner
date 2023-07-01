@@ -1,4 +1,4 @@
-import { InstructionName } from "@/lib/polisher/instructions";
+import { InstructionName } from "@/lib/refiner/instructions";
 import { atomWithStorage } from "jotai/utils";
 
 export const textAtom = atomWithStorage("text", "");
