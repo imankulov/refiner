@@ -25,6 +25,7 @@
     "eslint-config-prettier": "^8.8.0",
     "husky": "^4.3.8",
     "jotai": "^2.1.1",
+    "languagedetect": "^2.0.0",
     "lint-staged": "^13.2.2",
     "next": "13.4.4",
     "openai": "^3.2.1",
