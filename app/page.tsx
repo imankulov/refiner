@@ -44,8 +44,6 @@ const Home = () => {
     setLoading(false);
   };
 
-  console.log("refined", refined);
-
   return (
     <Box
       display="flex"
