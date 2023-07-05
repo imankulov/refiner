@@ -14,6 +14,9 @@ import { useAtom } from "jotai";
 import { compareStrings } from "./utils";
 import { showDiffAtom, textAtom, instructionNamesAtom } from "./atoms";
 import { InstructionSelector } from "@/components/InstructionSelector";
+import { ClipboardCopy } from "@/components/ClipboardCopy";
+import { RefinerSnackbar } from "@/components/RefinerSnackbar";
+import { CompareOutlined } from "@mui/icons-material";
 
 const Home = () => {
   const [text, setText] = useAtom(textAtom);
@@ -21,6 +24,7 @@ const Home = () => {
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<JSX.Element[]>([]);
+  const [refined, setRefined] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,10 +37,14 @@ const Home = () => {
       },
       body: JSON.stringify({ text, instructionNames }),
     });
-    const refined = (await result.json())["refined"];
-    setResult(compareStrings(text, refined));
+    const localRefined = (await result.json())["refined"];
+    console.log(localRefined);
+    setRefined(localRefined);
+    setResult(compareStrings(text, localRefined));
     setLoading(false);
   };
+
+  console.log("refined", refined);
 
   return (
     <Box
@@ -71,20 +79,25 @@ const Home = () => {
           <Box my={4} textAlign="left" sx={{ whiteSpace: "pre-wrap" }}>
             {result}
           </Box>
-          <Box>
+          <Stack spacing={2} direction="row">
             {result.length > 0 && (
-              <ToggleButton
-                size="small"
-                value="check"
-                selected={showDiff}
-                onChange={() => setShowDiff(!showDiff)}
-              >
-                {showDiff ? "Hide" : "Show"} diff
-              </ToggleButton>
+              <>
+                <ClipboardCopy content={refined} />
+                <ToggleButton
+                  size="small"
+                  value="check"
+                  selected={showDiff}
+                  onChange={() => setShowDiff(!showDiff)}
+                >
+                  <CompareOutlined />
+                  {showDiff ? "Hide" : "Show"} diff
+                </ToggleButton>
+              </>
             )}
-          </Box>
+          </Stack>
         </Stack>
       </Container>
+      <RefinerSnackbar />
     </Box>
   );
 };
