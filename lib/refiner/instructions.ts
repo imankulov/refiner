@@ -6,10 +6,9 @@ export type InstructionName =
   | "professional"
   | "positive"
   | "short"
-  | "bulletPoints"
   | "simple"
   | "emoji"
-  | "russian"
+  | "fillBlanks"
   | "markdown";
 
 export interface Instruction {
@@ -63,12 +62,6 @@ export const instructions: Instruction[] = [
     emoji: "🔪",
   },
   {
-    name: "bulletPoints",
-    title: "Bullet Points",
-    prompt: "Use bullet points to make the text easier to read.",
-    emoji: "📝",
-  },
-  {
     name: "simple",
     title: "Simple",
     prompt:
@@ -80,6 +73,13 @@ export const instructions: Instruction[] = [
     title: "Emoji",
     prompt: "Insert emojis to make the text more expressive.",
     emoji: "😀",
+  },
+  {
+    name: "fillBlanks",
+    title: "Fill Blanks",
+    prompt:
+      "Replace the placeholders denoted in the text with three X characters (XXX) in the text with suitable words or phrases that match the context. Make sure there are no XXX placeholders left in the text.",
+    emoji: "🔲",
   },
   {
     name: "markdown",
