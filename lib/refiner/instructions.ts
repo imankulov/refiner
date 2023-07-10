@@ -8,7 +8,7 @@ export type InstructionName =
   | "short"
   | "simple"
   | "emoji"
-  | "fillBlanks"
+  | "finish"
   | "markdown";
 
 export interface Instruction {
@@ -75,11 +75,11 @@ export const instructions: Instruction[] = [
     emoji: "😀",
   },
   {
-    name: "fillBlanks",
-    title: "Fill Blanks",
+    name: "finish",
+    title: "Finish",
     prompt:
-      "Replace the placeholders denoted in the text with three X characters (XXX) in the text with suitable words or phrases that match the context. Make sure there are no XXX placeholders left in the text.",
-    emoji: "🔲",
+      "Finish the sentence. Update the text by replacing the XXX placeholders with suitable words or phrases that match the context and finish the sentence.",
+    emoji: "🔚",
   },
   {
     name: "markdown",
