@@ -71,7 +71,8 @@ export const instructions: Instruction[] = [
   {
     name: "emoji",
     title: "Emoji",
-    prompt: "Insert emojis to make the text more expressive.",
+    prompt:
+      "Find and insert emojis throughout the text to make it more expressive and easier to scan. Annotate with emojis sentences, phrases, and words that are important, surprising, or funny.",
     emoji: "😀",
   },
   {
