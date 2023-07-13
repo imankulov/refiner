@@ -58,7 +58,8 @@ export const instructions: Instruction[] = [
   {
     name: "short",
     title: "Short",
-    prompt: "Make the text shorter. Remove unnecessary words and repetitions.",
+    prompt:
+      "Remove unnecessary words and repetitions. Replace long passages with shorter alternatives.",
     emoji: "🔪",
   },
   {
