@@ -76,7 +76,7 @@ function getDistinctIdAndIP() {
   hash.update(userAgent);
   hash.update(ip);
 
-  const hashString = hash.digest("hex");
+  const hashString = getReadableHash(hash.digest("hex"));
   return [hashString, ip];
 }
 
@@ -89,4 +89,20 @@ function getMixpanelClient() {
   return mixpanel.init(MIXPANEL_TOKEN, {
     host: MIXPANEL_HOST,
   });
+}
+
+/**
+ * Returns a readable hash of the provided hash.
+ *
+ * The readable hash is in the format XXXX-XXXX-XXXX-XXXX and is taken from the first 4 chunks of the hash.
+ *
+ * These chunks are converted to upppercase and separated by dashes.
+ *
+ * @param hash The hash to make readable (SHA256 hash).
+ * @returns A readable hash.
+ */
+function getReadableHash(hash: string) {
+  const chunks = hash.split(/(?=(?:.{4})+$)/);
+  const readable = chunks.map((chunk) => chunk.toUpperCase()).join("-");
+  return readable.slice(0, 19);
 }
