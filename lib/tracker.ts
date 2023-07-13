@@ -59,6 +59,9 @@ export async function trackRefine(
  * The distinct ID is a hash of the user agent and IP address, and is used to identify unique users.
  * The IP address is extracted from the "x-forwarded-for" header, if present, or from the request headers.
  *
+ * The function takes the first value from X-Forwarded-For. Make sure that you correctly configure your reverse proxy
+ * to avoid spoofing attacks (your outermost proxy should set the X-Forwarded-For header and not append to it.)
+ *
  * @returns An array containing the distinct ID and IP address.
  */
 function getDistinctIdAndIP() {
@@ -68,9 +71,7 @@ function getDistinctIdAndIP() {
   const userAgent = headersList.get("user-agent") ?? "";
   const forwarded = headersList.get("x-forwarded-for") ?? "";
   const forwardedChunks = forwarded ? forwarded.split(/\s*,\s*/) : [];
-  const ip = forwardedChunks.length
-    ? forwardedChunks[forwardedChunks.length - 1]
-    : "";
+  const ip = forwardedChunks[0] ?? "";
 
   hash.update(userAgent);
   hash.update(ip);
