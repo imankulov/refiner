@@ -5,11 +5,13 @@ import LanguageDetect from "languagedetect";
 import { guessLanguage } from "../guessLanguage";
 import { trackRefine } from "../tracker";
 import { titleCase } from "../strings";
+import { BASE_PATH } from "openai/dist/base";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY || "",
+  basePath: (process.env.OPENAI_BASE_PATH || BASE_PATH).replace(/\/+$/, ""),
 });
-
+const model = process.env.OPENAI_MODEL || "gpt-3.5-turbo-0613";
 const openai = new OpenAIApi(configuration);
 
 export const languageDetector = new LanguageDetect();
@@ -31,7 +33,7 @@ ${formatInstructions(instructions)}
 `;
 
   const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo-0613",
+    model,
     temperature: 0,
     messages: [
       { role: "system", content: prompt },
