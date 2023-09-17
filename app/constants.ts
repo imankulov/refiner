@@ -20,6 +20,5 @@ Give it a try now.`;
 export const DEMO_INSTRUCTION_NAMES: InstructionName[] = [
   "short",
   "simple",
-  "markdown",
   "finish",
 ];
