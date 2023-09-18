@@ -38,7 +38,6 @@ const Home = () => {
       body: JSON.stringify({ text, instructionNames }),
     });
     const localRefined = (await result.json())["refined"];
-    console.log(localRefined);
     setRefined(localRefined);
     setResult(compareStrings(text, localRefined));
     setLoading(false);
