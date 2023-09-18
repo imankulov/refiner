@@ -7,6 +7,9 @@ import {
   Stack,
   Container,
   ToggleButton,
+  InputAdornment,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
 
 import { useState } from "react";
@@ -17,6 +20,7 @@ import { InstructionSelector } from "@/components/InstructionSelector";
 import { ClipboardCopy } from "@/components/ClipboardCopy";
 import { RefinerSnackbar } from "@/components/RefinerSnackbar";
 import { CompareOutlined } from "@mui/icons-material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Home = () => {
   const [text, setText] = useAtom(textAtom);
@@ -62,6 +66,22 @@ const Home = () => {
             onChange={(e) => setText(e.target.value)}
             placeholder="Text"
             disabled={loading}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Tooltip title="Clear text">
+                    <IconButton
+                      edge="end"
+                      onClick={() => setText("")}
+                      disabled={loading}
+                      size="small"
+                    >
+                      <CloseIcon fontSize="small" />
+                    </IconButton>
+                  </Tooltip>
+                </InputAdornment>
+              ),
+            }}
           />
           <InstructionSelector />
           <Button
