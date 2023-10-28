@@ -13,7 +13,7 @@ export const ChunkDelete = ({ content }: { content: string }) => {
       sx={{
         backgroundColor: red[500],
         whiteSpace: "pre-wrap",
-        "&::before": { content: `"${content}"` },
+        "&::before": { content: `"${CSS.escape(content)}"` },
       }}
     ></Box>
   );
