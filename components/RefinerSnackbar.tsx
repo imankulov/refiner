@@ -1,4 +1,6 @@
-import { Snackbar, Alert, AlertProps } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import Alert, { AlertProps } from "@mui/material/Alert";
+
 import { atom, useAtom } from "jotai";
 
 const snackbarOpenAtom = atom(false);

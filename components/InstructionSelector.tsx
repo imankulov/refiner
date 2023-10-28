@@ -1,3 +1,12 @@
+import Box from "@mui/material/Box";
+import Checkbox from "@mui/material/Checkbox";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Tooltip from "@mui/material/Tooltip";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import { instructionNamesAtom } from "@/app/atoms";
 import {
   Instruction,
@@ -5,15 +14,6 @@ import {
   instructions,
 } from "@/lib/refiner/instructions";
 import { useAtom } from "jotai";
-import {
-  Box,
-  Checkbox,
-  Menu,
-  MenuItem,
-  ToggleButton,
-  ToggleButtonGroup,
-  Tooltip,
-} from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import {
   usePopupState,
@@ -21,7 +21,6 @@ import {
   bindMenu,
 } from "material-ui-popup-state/hooks";
 import { useResizeDetector } from "react-resize-detector";
-import { ExpandMore } from "@mui/icons-material";
 
 export const InstructionSelector = () => {
   const [instructionNames, setInstructionNames] = useAtom(instructionNamesAtom);
@@ -104,7 +103,7 @@ export const InstructionSelector = () => {
         {hiddenButtons.length > 0 && (
           <ToggleButton value="" {...bindToggle(popupState)}>
             Show more
-            <ExpandMore />
+            <ExpandMoreIcon />
           </ToggleButton>
         )}
 

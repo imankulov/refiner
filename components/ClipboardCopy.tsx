@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+
 import { useClipboard } from "use-clipboard-copy";
-import { ContentCopy } from "@mui/icons-material";
 import { useShowSnackbar } from "./RefinerSnackbar";
 
 export function ClipboardCopy({ content }: { content: string }) {
@@ -17,7 +18,7 @@ export function ClipboardCopy({ content }: { content: string }) {
       size="small"
       variant="outlined"
       onClick={handleClick}
-      startIcon={<ContentCopy />}
+      startIcon={<ContentCopyIcon />}
     >
       Copy to Clipboard
     </Button>

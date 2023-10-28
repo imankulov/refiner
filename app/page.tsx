@@ -1,16 +1,16 @@
 "use client";
 
-import {
-  Box,
-  TextField,
-  Button,
-  Stack,
-  Container,
-  ToggleButton,
-  InputAdornment,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Container from "@mui/material/Container";
+import ToggleButton from "@mui/material/ToggleButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import CompareOutlinedIcon from "@mui/icons-material/CompareOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 
 import { useState } from "react";
 import { useAtom } from "jotai";
@@ -19,8 +19,6 @@ import { showDiffAtom, textAtom, instructionNamesAtom } from "./atoms";
 import { InstructionSelector } from "@/components/InstructionSelector";
 import { ClipboardCopy } from "@/components/ClipboardCopy";
 import { RefinerSnackbar } from "@/components/RefinerSnackbar";
-import { CompareOutlined } from "@mui/icons-material";
-import CloseIcon from "@mui/icons-material/Close";
 
 const Home = () => {
   const [text, setText] = useAtom(textAtom);
@@ -106,7 +104,7 @@ const Home = () => {
                   selected={showDiff}
                   onChange={() => setShowDiff(!showDiff)}
                 >
-                  <CompareOutlined />
+                  <CompareOutlinedIcon />
                   {showDiff ? "Hide" : "Show"} diff
                 </ToggleButton>
               </>
