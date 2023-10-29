@@ -10,15 +10,11 @@ Here's a quick demo:
 - Replace this text with your own.
 - Optionally, choose tone and refinement instructions.
 - Click the 'Refine' button.
-- Watch as Refiner XXX.
-- Copy XXX
+- Watch as Refiner improves your text.
+- Copy the result to your clipboard.
 
 It is an open-source project. The code is available on https://github.com/imankulov/refiner.
 
 Give it a try now.`;
 
-export const DEMO_INSTRUCTION_NAMES: InstructionName[] = [
-  "short",
-  "simple",
-  "finish",
-];
+export const DEMO_INSTRUCTION_NAMES: InstructionName[] = ["short", "simple"];

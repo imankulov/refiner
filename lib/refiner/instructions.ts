@@ -8,7 +8,6 @@ export type InstructionName =
   | "short"
   | "simple"
   | "emoji"
-  | "finish"
   | "markdown";
 
 export interface InstructionGroup {
