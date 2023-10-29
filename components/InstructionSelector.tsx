@@ -4,70 +4,48 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Tooltip from "@mui/material/Tooltip";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { instructionNamesAtom } from "@/app/atoms";
 import {
-  Instruction,
+  InstructionGroup,
   InstructionName,
-  instructions,
+  instructionGroups,
 } from "@/lib/refiner/instructions";
 import { useAtom } from "jotai";
-import { useEffect, useRef, useState } from "react";
 import {
   usePopupState,
   bindToggle,
   bindMenu,
 } from "material-ui-popup-state/hooks";
-import { useResizeDetector } from "react-resize-detector";
+import { Button } from "@mui/material";
+import styled from "@emotion/styled";
 
 export const InstructionSelector = () => {
+  return (
+    <Box sx={{ display: "flex", justifyContent: "left" }}>
+      {instructionGroups.map((instructionGroup) => (
+        <InstructionMenu
+          key={instructionGroup.groupName}
+          instructionGroup={instructionGroup}
+        />
+      ))}
+    </Box>
+  );
+};
+
+function InstructionMenu({
+  instructionGroup,
+}: {
+  instructionGroup: InstructionGroup;
+}) {
   const [instructionNames, setInstructionNames] = useAtom(instructionNamesAtom);
 
-  const groupRef = useRef<HTMLDivElement>(null);
-  const { width } = useResizeDetector({
-    targetRef: groupRef,
-  });
-
-  const [visibleButtons, setVisibleButtons] = useState(instructions);
-  const [hiddenButtons, setHiddenButtons] = useState<Instruction[]>([]);
   const popupState = usePopupState({
     variant: "popover",
-    popupId: "showMoreMenu",
+    popupId: instructionGroup.groupName,
   });
-
-  useEffect(() => {
-    if (groupRef.current) {
-      const groupWidth = width ?? groupRef.current.offsetWidth;
-      let totalWidth = 0;
-      let tempVisible: Instruction[] = [];
-      let tempHidden: Instruction[] = [];
-
-      instructions.forEach((instruction, index) => {
-        // Approximate button width, adjust as needed
-        const buttonWidth = instruction.title.length * 8 + 40;
-        if (totalWidth + buttonWidth > groupWidth) {
-          tempHidden.push(instruction);
-        } else {
-          tempVisible.push(instruction);
-        }
-        totalWidth += buttonWidth;
-      });
-
-      setVisibleButtons(tempVisible);
-      setHiddenButtons(tempHidden);
-    }
-  }, [width]);
-
-  const handleInstructionChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newInstructions: InstructionName[]
-  ) => {
-    setInstructionNames(
-      newInstructions.filter((name) => (name as string) !== "")
-    );
-  };
 
   const toggleInstructionName = (instructionName: InstructionName) => {
     if (isInstructionSelected(instructionName)) {
@@ -84,31 +62,18 @@ export const InstructionSelector = () => {
   };
 
   return (
-    <Box ref={groupRef}>
-      <ToggleButtonGroup
-        value={instructionNames}
-        onChange={handleInstructionChange}
-        size="small"
-      >
-        {visibleButtons.map((instruction) => (
-          <ToggleButton value={instruction.name} key={instruction.name}>
-            <Tooltip title={instruction.prompt}>
-              <span>
-                {instruction.emoji} {instruction.title}
-              </span>
-            </Tooltip>
-          </ToggleButton>
-        ))}
-
-        {hiddenButtons.length > 0 && (
-          <ToggleButton value="" {...bindToggle(popupState)}>
-            Show more
-            <ExpandMoreIcon />
-          </ToggleButton>
-        )}
-
-        <Menu {...bindMenu(popupState)}>
-          {hiddenButtons.map((instruction) => (
+    <>
+      <Button {...bindToggle(popupState)}>
+        {instructionGroup.emoji} {instructionGroup.groupName}
+      </Button>
+      <Menu {...bindMenu(popupState)}>
+        {instructionGroup.instructions.map((instruction) => (
+          <HtmlTooltip
+            key={instruction.name}
+            title={instruction.prompt}
+            placement="right"
+            arrow
+          >
             <MenuItem
               onClick={() => {
                 toggleInstructionName(instruction.name);
@@ -132,9 +97,17 @@ export const InstructionSelector = () => {
               />
               {instruction.emoji} {instruction.title}
             </MenuItem>
-          ))}
-        </Menu>
-      </ToggleButtonGroup>
-    </Box>
+          </HtmlTooltip>
+        ))}
+      </Menu>
+    </>
   );
-};
+}
+
+const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}, & .${tooltipClasses.arrow}`]: {
+    maxWidth: 300,
+  },
+});
