@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 
 export const ChunkEqual = ({ content }: { content: string }) => {
   return (

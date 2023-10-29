@@ -1,5 +1,5 @@
 import { showDiffAtom } from "@/app/atoms";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 import { green } from "@mui/material/colors";
 import { useAtom } from "jotai";
 

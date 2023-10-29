@@ -1,5 +1,6 @@
 import { showDiffAtom } from "@/app/atoms";
-import { Box, Tooltip } from "@mui/material";
+import Box from "@mui/material/Box";
+import Tooltip from "@mui/material/Tooltip";
 import { yellow } from "@mui/material/colors";
 import { useAtom } from "jotai";
 
