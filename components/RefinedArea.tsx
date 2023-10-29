@@ -8,6 +8,10 @@ import { ClipboardCopy } from "@/components/ClipboardCopy";
 
 import { refinedAtom, resultAtom, showDiffAtom } from "@/app/atoms";
 import { Header } from "./Header";
+import {
+  UsedInstructions,
+  UsedInstructionsPlaceholder,
+} from "./UsedInstructions";
 
 export function RefinedArea() {
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);
@@ -24,6 +28,7 @@ export function RefinedArea() {
           flexGrow: 1,
         }}
       >
+        <UsedInstructionsPlaceholder />
         {result}
       </Box>
       <Stack spacing={2} direction="row">

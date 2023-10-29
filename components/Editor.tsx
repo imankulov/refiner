@@ -18,9 +18,11 @@ import {
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { compareStrings } from "@/app/utils";
-import { debounce } from "lodash";
+import { debounce, get } from "lodash";
 import { Header } from "./Header";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
+import { getInstructions } from "@/lib/refiner/instructions";
+import { UsedInstructions } from "./UsedInstructions";
 
 export function Editor() {
   const [text, setText] = useAtom(textAtom);
@@ -66,26 +68,33 @@ export function Editor() {
       <Header>
         <InstructionSelector />
       </Header>
-      <TextField
-        fullWidth
-        variant="outlined"
-        multiline
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        placeholder="Text"
-        sx={{ flexGrow: 1 }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <Tooltip title="Clear text">
-                <IconButton edge="end" onClick={() => setText("")} size="small">
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
-            </InputAdornment>
-          ),
-        }}
-      />
+      <Box>
+        <UsedInstructions instructionNames={instructionNames} />
+        <TextField
+          fullWidth
+          variant="outlined"
+          multiline
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Text"
+          sx={{ flexGrow: 1 }}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Tooltip title="Clear text">
+                  <IconButton
+                    edge="end"
+                    onClick={() => setText("")}
+                    size="small"
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </Tooltip>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Box>
       <Button
         variant="contained"
         color="primary"
