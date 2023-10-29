@@ -8,7 +8,9 @@ export type InstructionName =
   | "short"
   | "simple"
   | "emoji"
-  | "markdown";
+  | "highlight"
+  | "markdown"
+  | "bulletPoints";
 
 export interface InstructionGroup {
   groupName: string;
@@ -88,7 +90,7 @@ export const instructionGroups: InstructionGroup[] = [
   },
   {
     groupName: "Formatting",
-    emoji: "📝",
+    emoji: "📄",
     instructions: [
       {
         name: "emoji",
@@ -98,11 +100,24 @@ export const instructionGroups: InstructionGroup[] = [
         emoji: "😀",
       },
       {
+        name: "highlight",
+        title: "Highlight",
+        prompt:
+          "Use bold, italics, and other formatting to highlight important parts of the text. Use formatting to make the text easier to scan.",
+        emoji: "🔦",
+      },
+      {
         name: "markdown",
         title: "Markdown",
         prompt:
           "Use Markdown to format the text. Format naked URLs as Markdown links unless they are part of the code block. Inline links in text, whenever it is possible and appropriate. When applicable, use appropriate link text. Wrap variables, file names, and other code in backticks.",
         emoji: "Ⓜ️",
+      },
+      {
+        name: "bulletPoints",
+        title: "Bullet Points",
+        prompt: "Convert long paragraphs into bullet points.",
+        emoji: "📝",
       },
     ],
   },
