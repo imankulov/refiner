@@ -7,7 +7,7 @@ export const ChunkInsert = ({ content }: { key: number; content: string }) => {
   const [showDiff] = useAtom(showDiffAtom);
   let sx = {
     whiteSpace: "pre-wrap",
-    backgroundColor: showDiff ? green[500] : "inherit",
+    backgroundColor: showDiff ? green[200] : "inherit",
   };
   return (
     <Box component="span" sx={sx}>

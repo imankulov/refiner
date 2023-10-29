@@ -14,7 +14,7 @@ export const ChunkUpdate = ({
   const [showDiff] = useAtom(showDiffAtom);
   let sx = {
     whiteSpace: "pre-wrap",
-    backgroundColor: showDiff ? yellow[500] : "inherit",
+    backgroundColor: showDiff ? yellow[200] : "inherit",
   };
 
   return (
