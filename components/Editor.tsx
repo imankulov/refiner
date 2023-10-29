@@ -78,6 +78,7 @@ export function Editor() {
           onChange={(e) => setText(e.target.value)}
           placeholder="Text"
           sx={{ flexGrow: 1 }}
+          minRows={8}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
