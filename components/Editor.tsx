@@ -21,7 +21,6 @@ import { compareStrings } from "@/app/utils";
 import { debounce, get } from "lodash";
 import { Header } from "./Header";
 import { Box, Stack } from "@mui/material";
-import { getInstructions } from "@/lib/refiner/instructions";
 import { InstructionsToolbar } from "./InstructionsToolbar";
 
 export function Editor() {

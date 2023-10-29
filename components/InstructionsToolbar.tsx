@@ -1,33 +1,38 @@
 import { instructionNamesAtom } from "@/app/atoms";
 import { InstructionName, instructions } from "@/lib/refiner/instructions";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
 import { useAtom } from "jotai";
+import { green } from "@mui/material/colors";
 
 export function InstructionsToolbar() {
   const [instructionNames, setInstructionNames] = useAtom(instructionNamesAtom);
 
-  function toggleInstruction(name: InstructionName) {
-    const index = instructionNames.indexOf(name);
-    if (index === -1) {
-      setInstructionNames([...instructionNames, name]);
+  const isInstructionSelected = (instructionName: InstructionName) => {
+    return instructionNames.includes(instructionName);
+  };
+
+  const toggleInstructionName = (instructionName: InstructionName) => {
+    if (isInstructionSelected(instructionName)) {
+      setInstructionNames(
+        instructionNames.filter((name) => name !== instructionName)
+      );
     } else {
-      setInstructionNames([
-        ...instructionNames.slice(0, index),
-        ...instructionNames.slice(index + 1),
-      ]);
+      setInstructionNames([...instructionNames, instructionName]);
     }
-  }
+  };
 
   return (
-    <Stack
-      direction="row"
-      spacing={1}
-      alignItems="flex-end"
-      height="14px"
-      pl={2}
+    <ToggleButtonGroup
+      value={instructionNames}
+      onChange={(event, value) => {
+        console.log(value);
+        setInstructionNames(value);
+      }}
+      size="small"
+      sx={{ mb: 1 }}
     >
       {instructions.map((instruction) => (
         <Tooltip
@@ -36,29 +41,25 @@ export function InstructionsToolbar() {
           placement="top"
           arrow
         >
-          <Typography
-            variant="body2"
+          <ToggleButton
+            value={instruction.name}
             sx={{
-              filter: instructionNames.includes(instruction.name)
+              filter: isInstructionSelected(instruction.name)
                 ? "none"
-                : "grayscale(1) opacity(0.5)",
-              cursor: "pointer",
-              "&:hover": {
-                filter: "none",
-              },
-            }}
-            onClick={() => {
-              toggleInstruction(instruction.name);
+                : "grayscale(100%)",
+              borderBottom: !isInstructionSelected(instruction.name)
+                ? "1px solid rgba(0, 0, 0, 0.12)"
+                : `4px solid ${green[300]}`,
             }}
           >
             {instruction.emoji}
-          </Typography>
+          </ToggleButton>
         </Tooltip>
       ))}
-    </Stack>
+    </ToggleButtonGroup>
   );
 }
 
 export function UsedInstructionsPlaceholder() {
-  return <Box sx={{ height: "14px" }}></Box>;
+  return <Box sx={{ minHeight: "40px", mb: 1 }}></Box>;
 }
