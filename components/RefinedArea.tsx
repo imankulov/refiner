@@ -8,7 +8,7 @@ import { ClipboardCopy } from "@/components/ClipboardCopy";
 
 import { refinedAtom, resultAtom, showDiffAtom } from "@/app/atoms";
 import { Header } from "./Header";
-import { UsedInstructionsPlaceholder } from "./UsedInstructions";
+import { UsedInstructionsPlaceholder } from "./InstructionsToolbar";
 
 export function RefinedArea() {
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);

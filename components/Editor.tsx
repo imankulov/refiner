@@ -22,7 +22,7 @@ import { debounce, get } from "lodash";
 import { Header } from "./Header";
 import { Box, Stack } from "@mui/material";
 import { getInstructions } from "@/lib/refiner/instructions";
-import { UsedInstructions } from "./UsedInstructions";
+import { InstructionsToolbar } from "./InstructionsToolbar";
 
 export function Editor() {
   const [text, setText] = useAtom(textAtom);
@@ -69,7 +69,7 @@ export function Editor() {
         <InstructionSelector />
       </Header>
       <Box>
-        <UsedInstructions instructionNames={instructionNames} />
+        <InstructionsToolbar />
         <TextField
           fullWidth
           variant="outlined"
