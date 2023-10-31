@@ -2,10 +2,7 @@ import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import { instructionNamesAtom } from "@/app/atoms";
 import {
