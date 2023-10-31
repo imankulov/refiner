@@ -6,9 +6,10 @@ import Box from "@mui/material/Box";
 import { useAtom } from "jotai";
 import { ClipboardCopy } from "@/components/ClipboardCopy";
 
-import { refinedAtom, resultAtom, showDiffAtom } from "@/app/atoms";
+import { resultAtom, showDiffAtom } from "@/app/atoms";
 import { Header } from "./Header";
 import { UsedInstructionsPlaceholder } from "./InstructionsToolbar";
+import { HotkeyHint } from "./HotkeyHint";
 
 export function RefinedArea() {
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);
@@ -39,6 +40,7 @@ export function RefinedArea() {
             >
               <CompareOutlinedIcon />
               {showDiff ? "Hide" : "Show"} diff
+              <HotkeyHint hotkey="mod+shift+d" />
             </ToggleButton>
           </>
         )}

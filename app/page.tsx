@@ -11,20 +11,22 @@ import { RefinedArea } from "@/components/RefinedArea";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useRefine } from "./hooks/useRefine";
 import { useCopyRefinedContent } from "./hooks/useCopyRefinedContent";
+import { useToggleDiff } from "./hooks/useToggleDiff";
+import type { Options } from "react-hotkeys-hook/dist/types";
 
 const Home = () => {
   const refine = useRefine();
   const copyRefinedContent = useCopyRefinedContent();
+  const toggleDiff = useToggleDiff();
 
-  useHotkeys("mod+enter", (event) => {
-    event.preventDefault();
-    refine();
-  });
+  const hotkeyOptions: Options = {
+    enableOnFormTags: true,
+    preventDefault: true,
+  };
 
-  useHotkeys("mod+shift+c", (event) => {
-    event.preventDefault();
-    copyRefinedContent();
-  });
+  useHotkeys("mod+enter", refine, hotkeyOptions);
+  useHotkeys("mod+shift+c", copyRefinedContent, hotkeyOptions);
+  useHotkeys("mod+shift+d", toggleDiff, hotkeyOptions);
 
   return (
     <Container
