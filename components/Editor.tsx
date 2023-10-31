@@ -18,7 +18,7 @@ import {
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { compareStrings } from "@/app/utils";
-import { debounce, get } from "lodash";
+import { debounce } from "lodash";
 import { Header } from "./Header";
 import { Box, Stack } from "@mui/material";
 import { InstructionsToolbar } from "./InstructionsToolbar";
@@ -35,6 +35,7 @@ export function Editor() {
   const [loading, setLoading] = useState(false);
   const [, setResult] = useAtom(resultAtom);
   const [, setRefined] = useAtom(refinedAtom);
+  const [helperText, setHelperText] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,6 +62,10 @@ export function Editor() {
     setLoading(false);
   }
 
+  useEffect(() => {
+    setHelperText(`Press ${getMetaKeyDisplay()}+Enter to refine`);
+  });
+
   const refineDebounced = debounce(refine, AUTO_REFINE_DELAY_MS);
   useEffect(() => {
     if (!AUTO_REFINE) {
@@ -81,10 +86,6 @@ export function Editor() {
       event.preventDefault();
       refine();
     }
-  }
-
-  function getHelperText() {
-    return `Press ${getMetaKeyDisplay()}+Enter to refine`;
   }
 
   return (
@@ -119,7 +120,7 @@ export function Editor() {
               </InputAdornment>
             ),
           }}
-          helperText={getHelperText()}
+          helperText={helperText}
         />
       </Box>
       <Button
