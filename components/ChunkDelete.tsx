@@ -11,9 +11,13 @@ export const ChunkDelete = ({ content }: { content: string }) => {
     <Box
       component="span"
       sx={{
-        backgroundColor: red[200],
+        backgroundColor: red[100],
         whiteSpace: "pre-wrap",
-        "&::before": { content: `"${CSS.escape(content)}"` },
+        "&::before": {
+          content: `"${CSS.escape(content)}"`,
+          textDecoration: "line-through",
+          borderBottom: showDiff ? `2px solid ${red[400]}` : "none",
+        },
       }}
     ></Box>
   );
