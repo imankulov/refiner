@@ -28,7 +28,6 @@ export function InstructionsToolbar() {
     <ToggleButtonGroup
       value={instructionNames}
       onChange={(event, value) => {
-        console.log(value);
         setInstructionNames(value);
       }}
       size="small"
