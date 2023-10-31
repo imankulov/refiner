@@ -103,6 +103,7 @@ export function Editor() {
           onChange={handleOnChange}
           onKeyDown={handleKeyDown}
           placeholder="Text"
+          autoFocus
           sx={{ flexGrow: 1 }}
           minRows={8}
           InputProps={{
