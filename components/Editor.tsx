@@ -22,6 +22,12 @@ import { debounce, get } from "lodash";
 import { Header } from "./Header";
 import { Box, Stack } from "@mui/material";
 import { InstructionsToolbar } from "./InstructionsToolbar";
+import { getMetaKeyDisplay, isMetaPressed } from "@/lib/hotkeys";
+
+const AUTO_REFINE = (process.env.NEXT_PUBLIC_AUTO_REFINE ?? "false") === "true";
+const AUTO_REFINE_DELAY_MS = parseInt(
+  process.env.NEXT_PUBLIC_AUTO_REFINE_DELAY_MS ?? "2000"
+);
 
 export function Editor() {
   const [text, setText] = useAtom(textAtom);
@@ -55,12 +61,31 @@ export function Editor() {
     setLoading(false);
   }
 
-  const refineDebounced = debounce(refine, 1500);
-
+  const refineDebounced = debounce(refine, AUTO_REFINE_DELAY_MS);
   useEffect(() => {
+    if (!AUTO_REFINE) {
+      return;
+    }
     refineDebounced();
     return () => refineDebounced.cancel();
   }, [text, instructionNames]);
+
+  function handleOnChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    setText(event.target.value);
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (isMetaPressed(event) && event.key === "Enter") {
+      event.preventDefault();
+      refine();
+    }
+  }
+
+  function getHelperText() {
+    return `Press ${getMetaKeyDisplay()}+Enter to refine`;
+  }
 
   return (
     <Stack spacing={2} direction="column" flexGrow={1}>
@@ -74,7 +99,8 @@ export function Editor() {
           variant="outlined"
           multiline
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={handleOnChange}
+          onKeyDown={handleKeyDown}
           placeholder="Text"
           sx={{ flexGrow: 1 }}
           minRows={8}
@@ -93,6 +119,7 @@ export function Editor() {
               </InputAdornment>
             ),
           }}
+          helperText={getHelperText()}
         />
       </Box>
       <Button
