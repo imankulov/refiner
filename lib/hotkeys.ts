@@ -8,6 +8,10 @@ export function getMetaKeyDisplay() {
   return isMac() ? "⌘" : "Ctrl";
 }
 
+export function getShiftKeyDisplay() {
+  return isMac() ? "⇧" : "Shift";
+}
+
 export function isMetaPressed(event: React.KeyboardEvent) {
   return isMac() ? event.metaKey : event.ctrlKey;
 }

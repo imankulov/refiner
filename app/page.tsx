@@ -8,8 +8,24 @@ import { RefinerSnackbar } from "@/components/RefinerSnackbar";
 
 import { Editor } from "@/components/Editor";
 import { RefinedArea } from "@/components/RefinedArea";
+import { useHotkeys } from "react-hotkeys-hook";
+import { useRefine } from "./hooks/useRefine";
+import { useCopyRefinedContent } from "./hooks/useCopyRefinedContent";
 
 const Home = () => {
+  const refine = useRefine();
+  const copyRefinedContent = useCopyRefinedContent();
+
+  useHotkeys("mod+enter", (event) => {
+    event.preventDefault();
+    refine();
+  });
+
+  useHotkeys("mod+shift+c", (event) => {
+    event.preventDefault();
+    copyRefinedContent();
+  });
+
   return (
     <Container
       maxWidth="lg"

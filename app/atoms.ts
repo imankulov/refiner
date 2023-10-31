@@ -8,6 +8,7 @@ export const instructionNamesAtom = atomWithStorage<InstructionName[]>(
   "instructionNames",
   DEMO_INSTRUCTION_NAMES
 );
+export const loadingAtom = atom(false);
 export const showDiffAtom = atomWithStorage("showDiff", true);
 
 export const resultAtom = atom<JSX.Element[]>([]);

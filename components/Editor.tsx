@@ -11,18 +11,24 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { InstructionSelector } from "./InstructionSelector";
 import {
   instructionNamesAtom,
+  loadingAtom,
   refinedAtom,
-  resultAtom,
   textAtom,
 } from "@/app/atoms";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { compareStrings } from "@/app/utils";
 import { debounce } from "lodash";
 import { Header } from "./Header";
 import { Box, Stack } from "@mui/material";
 import { InstructionsToolbar } from "./InstructionsToolbar";
-import { getMetaKeyDisplay, isMetaPressed } from "@/lib/hotkeys";
+import {
+  getMetaKeyDisplay,
+  getShiftKeyDisplay,
+  isMetaPressed,
+} from "@/lib/hotkeys";
+import { useRefine } from "@/app/hooks/useRefine";
+import { isHotkeyPressed, useHotkeys } from "react-hotkeys-hook";
+import { useCopyRefinedContent } from "@/app/hooks/useCopyRefinedContent";
 
 const AUTO_REFINE = (process.env.NEXT_PUBLIC_AUTO_REFINE ?? "false") === "true";
 const AUTO_REFINE_DELAY_MS = parseInt(
@@ -32,39 +38,26 @@ const AUTO_REFINE_DELAY_MS = parseInt(
 export function Editor() {
   const [text, setText] = useAtom(textAtom);
   const [instructionNames] = useAtom(instructionNamesAtom);
-  const [loading, setLoading] = useState(false);
-  const [, setResult] = useAtom(resultAtom);
-  const [, setRefined] = useAtom(refinedAtom);
+  const [loading] = useAtom(loadingAtom);
   const [helperText, setHelperText] = useState("");
+  const [refined] = useAtom(refinedAtom);
+  const refine = useRefine();
+  const copyRefinedContent = useCopyRefinedContent();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await refine();
   };
 
-  async function refine() {
-    if (text.trim().length === 0) {
-      setResult([]);
-      return;
-    }
-    setResult([]);
-    setLoading(true);
-    const result = await fetch("api/v1/refine", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text, instructionNames }),
-    });
-    const localRefined = (await result.json())["refined"];
-    setRefined(localRefined);
-    setResult(compareStrings(text, localRefined));
-    setLoading(false);
-  }
-
   useEffect(() => {
-    setHelperText(`Press ${getMetaKeyDisplay()}+Enter to refine`);
-  });
+    const refinedHelperText =
+      refined.trim().length > 0
+        ? `, ${getMetaKeyDisplay()}+${getShiftKeyDisplay()}+C to copy refined text to clipboard`
+        : "";
+    setHelperText(
+      `Press ${getMetaKeyDisplay()}+Enter to refine${refinedHelperText}`
+    );
+  }, [refined]);
 
   const refineDebounced = debounce(refine, AUTO_REFINE_DELAY_MS);
   useEffect(() => {
@@ -86,7 +79,16 @@ export function Editor() {
       event.preventDefault();
       refine();
     }
+    if (isMetaPressed(event) && event.shiftKey && event.key === "c") {
+      event.preventDefault();
+      copyRefinedContent();
+    }
   }
+
+  useHotkeys("mod+shift+c", (event) => {
+    event.preventDefault();
+    copyRefinedContent();
+  });
 
   return (
     <Stack spacing={2} direction="column" flexGrow={1}>

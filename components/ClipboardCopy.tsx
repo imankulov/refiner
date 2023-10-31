@@ -1,26 +1,26 @@
 import Button from "@mui/material/Button";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
-import { useClipboard } from "use-clipboard-copy";
-import { useShowSnackbar } from "./RefinerSnackbar";
+import { useCopyRefinedContent } from "@/app/hooks/useCopyRefinedContent";
+import { useEffect, useState } from "react";
+import { getMetaKeyDisplay, getShiftKeyDisplay } from "@/lib/hotkeys";
 
-export function ClipboardCopy({ content }: { content: string }) {
-  const clipboard = useClipboard();
-  const showSnackbar = useShowSnackbar();
+export function ClipboardCopy() {
+  const copyRefinedContent = useCopyRefinedContent();
+  const [hotkeyHelp, setHotkeyHelp] = useState("");
 
-  const handleClick = () => {
-    clipboard.copy(content);
-    showSnackbar("Refined content copied to clipboard");
-  };
+  useEffect(() => {
+    setHotkeyHelp(` (${getMetaKeyDisplay()}+${getShiftKeyDisplay()}+C)`);
+  }, []);
 
   return (
     <Button
       size="small"
       variant="outlined"
-      onClick={handleClick}
+      onClick={copyRefinedContent}
       startIcon={<ContentCopyIcon />}
     >
-      Copy to Clipboard
+      Copy to Clipboard {hotkeyHelp}
     </Button>
   );
 }

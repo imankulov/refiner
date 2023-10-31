@@ -13,7 +13,6 @@ import { UsedInstructionsPlaceholder } from "./InstructionsToolbar";
 export function RefinedArea() {
   const [showDiff, setShowDiff] = useAtom(showDiffAtom);
   const [result] = useAtom(resultAtom);
-  const [refined] = useAtom(refinedAtom);
 
   return (
     <Stack spacing={2} direction="column" flexGrow={1}>
@@ -31,7 +30,7 @@ export function RefinedArea() {
       <Stack spacing={2} direction="row">
         {result.length > 0 && (
           <>
-            <ClipboardCopy content={refined} />
+            <ClipboardCopy />
             <ToggleButton
               size="small"
               value="check"
