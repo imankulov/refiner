@@ -16,7 +16,7 @@ export function ClipboardCopy() {
       onClick={copyRefinedContent}
       startIcon={<ContentCopyIcon />}
     >
-      Copy to Clipboard
+      Copy
       <HotkeyHint hotkey="mod+shift+c" />
     </Button>
   );
