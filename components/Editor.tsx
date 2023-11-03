@@ -60,11 +60,7 @@ export function Editor() {
 
   return (
     <Stack spacing={2} direction="column" flexGrow={1}>
-      <Header>
-        <InstructionSelector />
-      </Header>
       <Box>
-        <InstructionsToolbar />
         <TextField
           fullWidth
           variant="outlined"

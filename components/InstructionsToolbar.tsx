@@ -1,27 +1,39 @@
 import { instructionNamesAtom } from "@/app/atoms";
-import { InstructionName, instructions } from "@/lib/refiner/instructions";
+import {
+  InstructionGroup,
+  InstructionName,
+  instructionGroups,
+} from "@/lib/refiner/instructions";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Box from "@mui/material/Box";
 import Tooltip from "@mui/material/Tooltip";
+import Stack from "@mui/material/Stack";
+
 import { useAtom } from "jotai";
 import { green } from "@mui/material/colors";
 
 export function InstructionsToolbar() {
+  return (
+    <Stack direction="row" gap={1} sx={{ mb: 1, flexWrap: "wrap" }}>
+      {instructionGroups.map((instructionGroup) => (
+        <InstructionGroupToggleBar
+          key={instructionGroup.groupName}
+          instructionGroup={instructionGroup}
+        />
+      ))}
+    </Stack>
+  );
+}
+
+function InstructionGroupToggleBar({
+  instructionGroup,
+}: {
+  instructionGroup: InstructionGroup;
+}) {
   const [instructionNames, setInstructionNames] = useAtom(instructionNamesAtom);
 
   const isInstructionSelected = (instructionName: InstructionName) => {
     return instructionNames.includes(instructionName);
-  };
-
-  const toggleInstructionName = (instructionName: InstructionName) => {
-    if (isInstructionSelected(instructionName)) {
-      setInstructionNames(
-        instructionNames.filter((name) => name !== instructionName)
-      );
-    } else {
-      setInstructionNames([...instructionNames, instructionName]);
-    }
   };
 
   return (
@@ -31,9 +43,8 @@ export function InstructionsToolbar() {
         setInstructionNames(value);
       }}
       size="small"
-      sx={{ mb: 1 }}
     >
-      {instructions.map((instruction) => (
+      {instructionGroup.instructions.map((instruction) => (
         <Tooltip
           title={instruction.prompt}
           key={instruction.name}
@@ -57,8 +68,4 @@ export function InstructionsToolbar() {
       ))}
     </ToggleButtonGroup>
   );
-}
-
-export function UsedInstructionsPlaceholder() {
-  return <Box sx={{ minHeight: "40px", mb: 1 }}></Box>;
 }

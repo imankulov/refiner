@@ -7,8 +7,6 @@ import { useAtom } from "jotai";
 import { ClipboardCopy } from "@/components/ClipboardCopy";
 
 import { resultAtom, showDiffAtom } from "@/app/atoms";
-import { Header } from "./Header";
-import { UsedInstructionsPlaceholder } from "./InstructionsToolbar";
 import { HotkeyHint } from "./HotkeyHint";
 
 export function RefinedArea() {
@@ -17,7 +15,6 @@ export function RefinedArea() {
 
   return (
     <Stack spacing={2} direction="column" flexGrow={1}>
-      <Header></Header>
       <Box
         sx={{
           whiteSpace: "pre-wrap",
@@ -25,7 +22,6 @@ export function RefinedArea() {
           flexGrow: 1,
         }}
       >
-        <UsedInstructionsPlaceholder />
         {result}
       </Box>
       <Stack spacing={2} direction="row">

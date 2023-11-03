@@ -13,6 +13,9 @@ import { useRefine } from "./hooks/useRefine";
 import { useCopyRefinedContent } from "./hooks/useCopyRefinedContent";
 import { useToggleDiff } from "./hooks/useToggleDiff";
 import type { Options } from "react-hotkeys-hook/dist/types";
+import { Header } from "@/components/Header";
+import { InstructionSelector } from "@/components/InstructionSelector";
+import { InstructionsToolbar } from "@/components/InstructionsToolbar";
 
 const Home = () => {
   const refine = useRefine();
@@ -34,8 +37,17 @@ const Home = () => {
       sx={{
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
+        p: {
+          xs: 1,
+          md: 2,
+        },
       }}
     >
+      <Header>
+        <InstructionSelector />
+        <InstructionsToolbar />
+      </Header>
       <Stack
         spacing={{
           xs: 1,
@@ -46,10 +58,6 @@ const Home = () => {
           md: "row",
         }}
         sx={{
-          p: {
-            xs: 1,
-            md: 2,
-          },
           flexGrow: 1,
         }}
       >
