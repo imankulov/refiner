@@ -16,6 +16,11 @@ import type { Options } from "react-hotkeys-hook/dist/types";
 import { Header } from "@/components/Header";
 import { InstructionSelector } from "@/components/InstructionSelector";
 import { InstructionsToolbar } from "@/components/InstructionsToolbar";
+import { SupportUkraineBanner } from "@/components/SupportUkraineBanner";
+
+const AUTO_REFINE = (process.env.NEXT_PUBLIC_AUTO_REFINE ?? "false") === "true";
+const SHOW_SUPPORT_UKRAINE_BANNER =
+  (process.env.NEXT_PUBLIC_SHOW_SUPPORT_UKRAINE_BANNER ?? "false") === "true";
 
 const Home = () => {
   const refine = useRefine();
@@ -44,6 +49,7 @@ const Home = () => {
         },
       }}
     >
+      {SHOW_SUPPORT_UKRAINE_BANNER && <SupportUkraineBanner />}
       <Header>
         <InstructionSelector />
         <InstructionsToolbar />
